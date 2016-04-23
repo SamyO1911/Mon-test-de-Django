@@ -1,0 +1,18 @@
+from __future__ import unicode_literals
+
+from django.db import models
+
+class Simulation(models.Model):
+    client = models.ForeignKey('auth.User')
+    title = models.CharField(max_length=200)
+    created_date = models.DateTimeField(
+            default=timezone.now)
+    simulation_date = models.DateTimeField(
+            blank=True, null=True)
+
+    def publish(self):
+        self.simulation_date = timezone.now()
+        self.save()
+
+    def __str__(self):
+        return self.title
